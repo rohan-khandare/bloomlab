@@ -1,7 +1,7 @@
-@import url(
-  'https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap'
-);
 
+@import url(
+  "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+);
 
 :root {
   font-family: "Space Grotesk", sans-serif;
@@ -12,16 +12,13 @@
   font-synthesis: none;
 }
 
-
 * {
   box-sizing: border-box;
 }
 
-
 html {
   scroll-behavior: smooth;
 }
-
 
 body {
   margin: 0;
@@ -49,7 +46,6 @@ body {
   border-bottom: 1px solid #d9d8d1;
 }
 
-
 .logo {
   font-family: "DM Mono", monospace;
 
@@ -58,11 +54,9 @@ body {
   letter-spacing: -0.5px;
 }
 
-
 .logo span {
   opacity: 0.4;
 }
-
 
 .navbar a {
   color: #111;
@@ -89,7 +83,6 @@ body {
   border-bottom: 1px solid #d9d8d1;
 }
 
-
 .eyebrow,
 .sectionNumber {
   font-family: "DM Mono", monospace;
@@ -101,11 +94,9 @@ body {
   color: #777;
 }
 
-
 .eyebrow {
   margin-bottom: 25px;
 }
-
 
 .hero h1 {
   max-width: 1000px;
@@ -123,11 +114,9 @@ body {
   letter-spacing: -5px;
 }
 
-
 .hero h1 span {
   color: #777;
 }
-
 
 .hero p {
   max-width: 600px;
@@ -140,7 +129,6 @@ body {
 
   line-height: 1.6;
 }
-
 
 .startButton {
   width: fit-content;
@@ -162,7 +150,6 @@ body {
   transition: transform 0.2s;
 }
 
-
 .startButton:hover {
   transform: translateY(-3px);
 }
@@ -173,7 +160,6 @@ body {
 .intro {
   padding: 130px 10%;
 }
-
 
 .intro h2 {
   max-width: 850px;
@@ -192,7 +178,7 @@ body {
 }
 
 
-/* LAB PLACEHOLDER */
+/* LAB */
 
 .labPlaceholder {
   padding: 130px 10%;
@@ -202,11 +188,9 @@ body {
   color: white;
 }
 
-
 .labPlaceholder .sectionNumber {
   color: #888;
 }
-
 
 .labPlaceholder h2 {
   font-size: 60px;
@@ -214,9 +198,165 @@ body {
   letter-spacing: -3px;
 }
 
-
 .labPlaceholder p {
   color: #888;
+}
+
+
+/* BIT ARRAY */
+
+.bitArray {
+  display: grid;
+
+  grid-template-columns:
+    repeat(16, minmax(0, 1fr));
+
+  gap: 6px;
+
+  width: 100%;
+
+  margin-top: 40px;
+}
+
+.bitCell {
+  aspect-ratio: 1;
+
+  min-width: 0;
+
+  border: 1px solid #333;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: #181818;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.bitValue {
+  font-family: "DM Mono", monospace;
+
+  font-size: 18px;
+}
+
+.bitIndex {
+  margin-top: 5px;
+
+  font-family: "DM Mono", monospace;
+
+  font-size: 8px;
+
+  color: #666;
+}
+
+.bitCell.active {
+  background: white;
+
+  color: #111;
+
+  border-color: white;
+}
+
+.bitCell.active .bitIndex {
+  color: #888;
+}
+
+.bitCell.highlighted {
+  transform: translateY(-8px);
+
+  border-color: #aaa;
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+
+/* ADD CONTROL */
+
+.addControl {
+  max-width: 700px;
+
+  margin-top: 60px;
+}
+
+.controlLabel {
+  margin-bottom: 10px;
+
+  font-family: "DM Mono", monospace;
+
+  font-size: 11px;
+
+  letter-spacing: 1.5px;
+
+  color: #777;
+}
+
+.inputRow {
+  display: flex;
+
+  width: 100%;
+}
+
+.inputRow input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 17px 18px;
+
+  border: 1px solid #333;
+
+  border-right: none;
+
+  outline: none;
+
+  background: #181818;
+
+  color: white;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: 15px;
+}
+
+.inputRow input::placeholder {
+  color: #666;
+}
+
+.inputRow input:focus {
+  border-color: #777;
+}
+
+.inputRow button {
+  padding: 0 28px;
+
+  border: 1px solid #333;
+
+  background: white;
+
+  color: #111;
+
+  cursor: pointer;
+
+  font-family: "DM Mono", monospace;
+
+  font-size: 12px;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.inputRow button:hover {
+  background: #ddd;
 }
 
 
@@ -231,7 +371,6 @@ footer {
 
   border-top: 1px solid #d9d8d1;
 }
-
 
 footer p {
   margin: 0;
@@ -252,7 +391,6 @@ footer p {
     padding: 0 6%;
   }
 
-
   .hero,
   .intro,
   .labPlaceholder {
@@ -260,11 +398,27 @@ footer p {
     padding-right: 7%;
   }
 
-
   .hero h1 {
     letter-spacing: -3px;
   }
 
+  .bitArray {
+    grid-template-columns:
+      repeat(8, minmax(0, 1fr));
+  }
+
+  .inputRow {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .inputRow input {
+    border-right: 1px solid #333;
+  }
+
+  .inputRow button {
+    min-height: 48px;
+  }
 
   footer {
     padding: 40px 7%;
@@ -273,5 +427,4 @@ footer p {
 
     gap: 20px;
   }
-
 }
