@@ -89,6 +89,62 @@ app.post("/api/bloom/reset", (req, res) => {
 });
 
 
+app.get("/api/bloom/false-positive-demo", (req, res) => {
+  // Small filter intentionally used to make collisions easier to see
+  const demoBloom = new BloomFilter(8, 3);
+
+  const insertedItems = [
+    "apple",
+    "banana",
+    "orange"
+  ];
+
+  // Add known items
+  for (const item of insertedItems) {
+    demoBloom.add(item);
+  }
+
+  // Candidates that were NOT inserted
+  const candidates = [
+    "mango",
+    "computer",
+    "hello",
+    "pizza",
+    "grape",
+    "water",
+    "flower",
+    "dog"
+  ];
+
+
+  // Find a candidate that the Bloom Filter
+  // incorrectly reports as present
+  const falsePositive = candidates.find(
+    item =>
+      !insertedItems.includes(item) &&
+      demoBloom.contains(item)
+  );
+
+  if (!falsePositive) {
+    return res.json({
+      found: false
+    });
+  }
+
+  res.json({
+    found: true,
+
+    insertedItems,
+
+    testedItem: falsePositive,
+
+    positions:
+      demoBloom.getPositions(falsePositive),
+
+    bits: demoBloom.bits
+  });
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(
