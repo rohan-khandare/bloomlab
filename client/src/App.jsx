@@ -854,6 +854,74 @@ function App() {
                 </div>
 
 
+                {/* DEMO BIT ARRAY */}
+
+                <div className="demoBitSection">
+
+                  <div className="demoLabel">
+                    THE 8-BIT FILTER
+                  </div>
+
+                  <div className="demoBitArray">
+
+                    {falsePositiveDemo.bits.map(
+                      (bit, index) => {
+
+                        const highlighted =
+                          falsePositiveDemo.positions.includes(
+                            index
+                          );
+
+                        return (
+                          <div
+                            key={index}
+                            className={`
+                              demoBit
+                              ${
+                                bit === 1
+                                  ? "demoBitActive"
+                                  : ""
+                              }
+                              ${
+                                highlighted
+                                  ? "demoBitHighlighted"
+                                  : ""
+                              }
+                            `}
+                          >
+
+                            <span>
+                              {bit}
+                            </span>
+
+                            <small>
+                              {index}
+                            </small>
+
+                          </div>
+                        );
+                      }
+                    )}
+
+                  </div>
+
+                  <div className="demoBitExplanation">
+
+                    The highlighted bits are the
+                    positions generated for{" "}
+
+                    <strong>
+                      {falsePositiveDemo.testedItem}
+                    </strong>
+
+                    . Every one of them is already
+                    set to <strong>1</strong>.
+
+                  </div>
+
+                </div>
+
+
                 {/* POSITIONS */}
 
                 <div className="demoPositions">
@@ -870,6 +938,7 @@ function App() {
                           key={position}
                           className="demoPosition"
                         >
+
                           <span>
                             {position}
                           </span>
@@ -877,6 +946,7 @@ function App() {
                           <small>
                             BIT = 1
                           </small>
+
                         </div>
                       )
                     )}
@@ -891,6 +961,8 @@ function App() {
 
           </div>
 
+
+          {/* EXPLANATION */}
 
           <div className="falseExplanation">
 
