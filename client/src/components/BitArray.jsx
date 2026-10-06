@@ -1,7 +1,7 @@
-
 function BitArray({
   bits,
-  highlightedPositions = []
+  highlightedPositions = [],
+  highlightMode = "add"
 }) {
   return (
     <div className="bitArray">
@@ -17,7 +17,11 @@ function BitArray({
             className={`
               bitCell
               ${bit === 1 ? "active" : ""}
-              ${highlighted ? "highlighted" : ""}
+              ${
+                highlighted
+                  ? `highlighted ${highlightMode}Highlight`
+                  : ""
+              }
             `}
           >
 

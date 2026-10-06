@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import "./App.css";
 import BitArray from "./components/BitArray";
@@ -7,8 +6,15 @@ const API_URL = "http://localhost:5000/api/bloom";
 
 function App() {
   const [bits, setBits] = useState([]);
-  const [highlightedPositions, setHighlightedPositions] = useState([]);
+  const [highlightedPositions, setHighlightedPositions] =
+    useState([]);
+
   const [input, setInput] = useState("");
+
+  const [checkResult, setCheckResult] = useState(null);
+
+  const [highlightMode, setHighlightMode] =
+    useState("add");
 
   useEffect(() => {
     loadBloomState();
@@ -16,7 +22,10 @@ function App() {
 
   async function loadBloomState() {
     try {
-      const response = await fetch(`${API_URL}/state`);
+      const response = await fetch(
+        `${API_URL}/state`
+      );
+
       const data = await response.json();
 
       setBits(data.bits);
@@ -57,6 +66,10 @@ function App() {
         data.positions
       );
 
+      setHighlightMode("add");
+
+      setCheckResult(null);
+
       setInput("");
 
     } catch (error) {
@@ -67,8 +80,49 @@ function App() {
     }
   }
 
+  async function checkValue() {
+    if (!input.trim()) {
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `${API_URL}/check`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            value: input
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      setHighlightedPositions(
+        data.positions
+      );
+
+      setHighlightMode("check");
+
+      setCheckResult(data);
+
+    } catch (error) {
+      console.error(
+        "Failed to check value:",
+        error
+      );
+    }
+  }
+
   return (
     <div className="app">
+
+      {/* NAVBAR */}
 
       <nav className="navbar">
 
@@ -118,7 +172,7 @@ function App() {
         </section>
 
 
-        {/* INTRODUCTION */}
+        {/* INTRO */}
 
         <section className="intro">
 
@@ -137,7 +191,7 @@ function App() {
         </section>
 
 
-        {/* BLOOM FILTER LAB */}
+        {/* LAB */}
 
         <section
           className="labPlaceholder"
@@ -165,15 +219,16 @@ function App() {
             highlightedPositions={
               highlightedPositions
             }
+            highlightMode={highlightMode}
           />
 
 
-          {/* ADD ITEM */}
+          {/* CONTROLS */}
 
           <div className="addControl">
 
             <div className="controlLabel">
-              ADD AN ITEM
+              EXPERIMENT
             </div>
 
             <div className="inputRow">
@@ -181,9 +236,10 @@ function App() {
               <input
                 type="text"
                 value={input}
-                onChange={(event) =>
-                  setInput(event.target.value)
-                }
+                onChange={(event) => {
+                  setInput(event.target.value);
+                  setCheckResult(null);
+                }}
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
                     addValue();
@@ -192,13 +248,72 @@ function App() {
                 placeholder="e.g. apple"
               />
 
-              <button onClick={addValue}>
+              <button
+                className="addButton"
+                onClick={addValue}
+              >
                 ADD
+              </button>
+
+              <button
+                className="checkButton"
+                onClick={checkValue}
+              >
+                CHECK
               </button>
 
             </div>
 
           </div>
+
+
+          {/* CHECK RESULT */}
+
+          {checkResult && (
+
+            <div
+              className={`checkResult ${
+                checkResult.exists
+                  ? "probably"
+                  : "definitelyNot"
+              }`}
+            >
+
+              <div className="resultLabel">
+                MEMBERSHIP CHECK
+              </div>
+
+              <div className="resultTitle">
+
+                {checkResult.exists
+                  ? "PROBABLY EXISTS"
+                  : "DEFINITELY DOES NOT EXIST"}
+
+              </div>
+
+              <div className="resultPositions">
+
+                Hash positions:
+
+                <span>
+                  {checkResult.positions.join(
+                    " · "
+                  )}
+                </span>
+
+              </div>
+
+              <p>
+
+                {checkResult.exists
+                  ? "All required bits are 1. The Bloom Filter says this item probably exists, but a false positive is possible."
+                  : "At least one required bit is 0. Therefore, this item definitely does not exist in the Bloom Filter."}
+
+              </p>
+
+            </div>
+
+          )}
 
         </section>
 

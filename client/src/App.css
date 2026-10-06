@@ -1,14 +1,11 @@
-
 @import url(
   "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
 );
 
 :root {
   font-family: "Space Grotesk", sans-serif;
-
   color: #111;
   background: #f4f3ee;
-
   font-synthesis: none;
 }
 
@@ -36,7 +33,6 @@ body {
 
 .navbar {
   height: 72px;
-
   padding: 0 8%;
 
   display: flex;
@@ -48,9 +44,7 @@ body {
 
 .logo {
   font-family: "DM Mono", monospace;
-
   font-size: 15px;
-
   letter-spacing: -0.5px;
 }
 
@@ -60,11 +54,9 @@ body {
 
 .navbar a {
   color: #111;
-
   text-decoration: none;
 
   font-family: "DM Mono", monospace;
-
   font-size: 13px;
 }
 
@@ -73,7 +65,6 @@ body {
 
 .hero {
   min-height: 82vh;
-
   padding: 100px 10%;
 
   display: flex;
@@ -86,11 +77,8 @@ body {
 .eyebrow,
 .sectionNumber {
   font-family: "DM Mono", monospace;
-
   font-size: 11px;
-
   letter-spacing: 1.5px;
-
   color: #777;
 }
 
@@ -100,17 +88,10 @@ body {
 
 .hero h1 {
   max-width: 1000px;
-
   margin: 0;
 
-  font-size: clamp(
-    48px,
-    7vw,
-    92px
-  );
-
+  font-size: clamp(48px, 7vw, 92px);
   line-height: 0.98;
-
   letter-spacing: -5px;
 }
 
@@ -120,34 +101,31 @@ body {
 
 .hero p {
   max-width: 600px;
-
   margin-top: 35px;
 
   color: #666;
 
   font-size: 19px;
-
   line-height: 1.6;
 }
 
 .startButton {
   width: fit-content;
-
   margin-top: 30px;
 
   padding: 16px 24px;
 
   background: #111;
-
   color: white;
 
   text-decoration: none;
 
   font-family: "DM Mono", monospace;
-
   font-size: 13px;
 
-  transition: transform 0.2s;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
 .startButton:hover {
@@ -163,17 +141,11 @@ body {
 
 .intro h2 {
   max-width: 850px;
-
   margin-top: 40px;
 
-  font-size: clamp(
-    40px,
-    5vw,
-    70px
-  );
+  font-size: clamp(40px, 5vw, 70px);
 
   line-height: 1;
-
   letter-spacing: -3px;
 }
 
@@ -184,7 +156,6 @@ body {
   padding: 130px 10%;
 
   background: #111;
-
   color: white;
 }
 
@@ -194,7 +165,6 @@ body {
 
 .labPlaceholder h2 {
   font-size: 60px;
-
   letter-spacing: -3px;
 }
 
@@ -226,24 +196,22 @@ body {
   border: 1px solid #333;
 
   display: flex;
-
   flex-direction: column;
-
   justify-content: center;
-
   align-items: center;
 
   background: #181818;
 
   transition:
-    background 0.25s ease,
-    transform 0.25s ease,
-    border-color 0.25s ease;
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .bitValue {
   font-family: "DM Mono", monospace;
-
   font-size: 18px;
 }
 
@@ -251,15 +219,16 @@ body {
   margin-top: 5px;
 
   font-family: "DM Mono", monospace;
-
   font-size: 8px;
 
   color: #666;
 }
 
+
+/* ACTIVE BIT */
+
 .bitCell.active {
   background: white;
-
   color: #111;
 
   border-color: white;
@@ -269,21 +238,62 @@ body {
   color: #888;
 }
 
+
+/* GENERAL HIGHLIGHT */
+
 .bitCell.highlighted {
   transform: translateY(-8px);
-
-  border-color: #aaa;
-
-  box-shadow:
-    0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
 
-/* ADD CONTROL */
+/* ADD HIGHLIGHT */
+
+.bitCell.addHighlight {
+  border-color: white;
+
+  box-shadow:
+    0 10px 25px rgba(255, 255, 255, 0.12);
+}
+
+
+/* CHECK HIGHLIGHT */
+
+.bitCell.checkHighlight {
+  background: #0d2024;
+
+  color: #7ee7f2;
+
+  border-color: #39c6d6;
+
+  box-shadow:
+    0 0 0 2px rgba(57, 198, 214, 0.15),
+    0 12px 30px rgba(57, 198, 214, 0.2);
+}
+
+.bitCell.checkHighlight .bitIndex {
+  color: #4faeba;
+}
+
+
+/* CHECK HIGHLIGHT ON A SET BIT */
+
+.bitCell.active.checkHighlight {
+  background: #12373c;
+
+  color: #9af2fa;
+
+  border-color: #54d9e7;
+}
+
+.bitCell.active.checkHighlight .bitIndex {
+  color: #65bdc7;
+}
+
+
+/* EXPERIMENT CONTROL */
 
 .addControl {
-  max-width: 700px;
-
+  max-width: 900px;
   margin-top: 60px;
 }
 
@@ -301,25 +311,21 @@ body {
 
 .inputRow {
   display: flex;
-
   width: 100%;
 }
 
 .inputRow input {
   flex: 1;
-
   min-width: 0;
 
   padding: 17px 18px;
 
   border: 1px solid #333;
-
   border-right: none;
 
   outline: none;
 
   background: #181818;
-
   color: white;
 
   font-family: "Space Grotesk", sans-serif;
@@ -332,17 +338,11 @@ body {
 }
 
 .inputRow input:focus {
-  border-color: #777;
+  border-color: #555;
 }
 
 .inputRow button {
   padding: 0 28px;
-
-  border: 1px solid #333;
-
-  background: white;
-
-  color: #111;
 
   cursor: pointer;
 
@@ -352,11 +352,146 @@ body {
 
   transition:
     background 0.2s ease,
-    color 0.2s ease;
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
-.inputRow button:hover {
+
+/* ADD BUTTON */
+
+.addButton {
+  border: 2px solid rgb(150, 98, 184);
+ 
+  background: white;
+  color: #3a1f6d;
+}
+
+.addButton:hover {
   background: #ddd;
+}
+
+
+/* CHECK BUTTON */
+
+.checkButton {
+  border: 2px solid #39c6d6;
+  /* border-left: none !important; */
+
+  background: #12373c;
+  color: #8debf3;
+}
+
+.checkButton:hover {
+  background: #17474d;
+}
+
+
+/* CHECK RESULT */
+
+.checkResult {
+  max-width: 900px;
+
+  margin-top: 35px;
+
+  padding: 30px;
+
+  border: 1px solid #333;
+
+  background: #181818;
+
+  animation: resultAppear 0.3s ease;
+}
+
+@keyframes resultAppear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.resultLabel {
+  font-family: "DM Mono", monospace;
+
+  font-size: 10px;
+
+  letter-spacing: 1.5px;
+
+  color: #777;
+}
+
+.resultTitle {
+  margin-top: 12px;
+
+  font-size: clamp(
+    28px,
+    4vw,
+    48px
+  );
+
+  font-weight: 600;
+
+  letter-spacing: -2px;
+}
+
+
+/* PROBABLY EXISTS */
+
+.checkResult.probably {
+  border-color: #39c6d6;
+}
+
+.checkResult.probably .resultTitle {
+  color: #7ee7f2;
+}
+
+
+/* DEFINITELY NOT */
+
+.checkResult.definitelyNot {
+  border-color: #555;
+}
+
+.checkResult.definitelyNot .resultTitle {
+  color: #f0a08a;
+}
+
+
+/* HASH POSITIONS */
+
+.resultPositions {
+  margin-top: 20px;
+
+  color: #777;
+
+  font-family: "DM Mono", monospace;
+
+  font-size: 12px;
+}
+
+.resultPositions span {
+  margin-left: 10px;
+
+  color: #7ee7f2;
+}
+
+
+/* RESULT EXPLANATION */
+
+.checkResult p {
+  max-width: 700px;
+
+  margin-top: 20px;
+
+  color: #999;
+
+  font-size: 14px;
+
+  line-height: 1.6;
 }
 
 
@@ -402,6 +537,10 @@ footer p {
     letter-spacing: -3px;
   }
 
+  .labPlaceholder h2 {
+    font-size: 45px;
+  }
+
   .bitArray {
     grid-template-columns:
       repeat(8, minmax(0, 1fr));
@@ -418,6 +557,14 @@ footer p {
 
   .inputRow button {
     min-height: 48px;
+  }
+
+  .checkButton {
+    border-left: 1px solid #39c6d6 !important;
+  }
+
+  .checkResult {
+    padding: 22px;
   }
 
   footer {
