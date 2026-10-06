@@ -7,15 +7,27 @@ const app = express();
 
 const PORT = 5000;
 
-// Middleware
+
+/* ========================================
+   MIDDLEWARE
+======================================== */
+
 app.use(cors());
+
 app.use(express.json());
 
-// Create Bloom Filter
+
+/* ========================================
+   MAIN BLOOM FILTER
+======================================== */
+
 const bloom = new BloomFilter(32, 3);
 
 
-// Home route
+/* ========================================
+   ROOT
+======================================== */
+
 app.get("/", (req, res) => {
   res.json({
     message: "BloomLab API is running"
@@ -23,131 +35,309 @@ app.get("/", (req, res) => {
 });
 
 
-// Get current Bloom Filter state
-app.get("/api/bloom/state", (req, res) => {
-  res.json({
-    size: bloom.size,
-    hashCount: bloom.hashCount,
-    bits: bloom.bits
-  });
-});
+/* ========================================
+   GET BLOOM FILTER STATE
+======================================== */
 
+app.get(
+  "/api/bloom/state",
+  (req, res) => {
 
-// Add an item
-app.post("/api/bloom/add", (req, res) => {
+    res.json({
+      size: bloom.size,
 
-  const { value } = req.body;
+      hashCount:
+        bloom.hashCount,
 
-  if (!value || !value.trim()) {
-    return res.status(400).json({
-      message: "Value is required"
+      bits:
+        bloom.bits
     });
+
   }
-
-  const positions = bloom.add(value.trim());
-
-  res.json({
-    value: value.trim(),
-    positions,
-    bits: bloom.bits
-  });
-});
+);
 
 
-// Check an item
-app.post("/api/bloom/check", (req, res) => {
+/* ========================================
+   GET BLOOM FILTER STATS
+======================================== */
 
-  const { value } = req.body;
+app.get(
+  "/api/bloom/stats",
+  (req, res) => {
 
-  if (!value || !value.trim()) {
-    return res.status(400).json({
-      message: "Value is required"
+    const size =
+      bloom.size;
+
+    const hashCount =
+      bloom.hashCount;
+
+    const insertedItems =
+      bloom.itemCount;
+
+    const insertedBits =
+      bloom.bits.filter(
+        bit => bit === 1
+      ).length;
+
+    const fillRatio =
+      insertedBits / size;
+
+    const falsePositiveRate =
+      insertedItems === 0
+        ? 0
+        : Math.pow(
+            1 -
+              Math.exp(
+                (-hashCount *
+                  insertedItems) /
+                  size
+              ),
+            hashCount
+          );
+
+    res.json({
+
+      size,
+
+      hashCount,
+
+      insertedItems,
+
+      insertedBits,
+
+      fillRatio,
+
+      falsePositiveRate
+
     });
+
   }
-
-  const positions = bloom.getPositions(value.trim());
-
-  const exists = bloom.contains(value.trim());
-
-  res.json({
-    value: value.trim(),
-    exists,
-    positions
-  });
-});
+);
 
 
-// Reset Bloom Filter
-app.post("/api/bloom/reset", (req, res) => {
+/* ========================================
+   ADD ITEM
+======================================== */
 
-  bloom.bits.fill(0);
+app.post(
+  "/api/bloom/add",
+  (req, res) => {
 
-  res.json({
-    message: "Bloom Filter reset",
-    bits: bloom.bits
-  });
-});
+    const { value } =
+      req.body;
 
+    if (
+      !value ||
+      !value.trim()
+    ) {
 
-app.get("/api/bloom/false-positive-demo", (req, res) => {
-  // Small filter intentionally used to make collisions easier to see
-  const demoBloom = new BloomFilter(8, 3);
+      return res
+        .status(400)
+        .json({
+          message:
+            "Value is required"
+        });
 
-  const insertedItems = [
-    "apple",
-    "banana",
-    "orange"
-  ];
+    }
 
-  // Add known items
-  for (const item of insertedItems) {
-    demoBloom.add(item);
-  }
+    const cleanValue =
+      value.trim();
 
-  // Candidates that were NOT inserted
-  const candidates = [
-    "mango",
-    "computer",
-    "hello",
-    "pizza",
-    "grape",
-    "water",
-    "flower",
-    "dog"
-  ];
+    const positions =
+      bloom.add(
+        cleanValue
+      );
 
+    res.json({
 
-  // Find a candidate that the Bloom Filter
-  // incorrectly reports as present
-  const falsePositive = candidates.find(
-    item =>
-      !insertedItems.includes(item) &&
-      demoBloom.contains(item)
-  );
+      value:
+        cleanValue,
 
-  if (!falsePositive) {
-    return res.json({
-      found: false
+      positions,
+
+      bits:
+        bloom.bits
+
     });
+
   }
+);
 
-  res.json({
-    found: true,
 
-    insertedItems,
+/* ========================================
+   CHECK ITEM
+======================================== */
 
-    testedItem: falsePositive,
+app.post(
+  "/api/bloom/check",
+  (req, res) => {
 
-    positions:
-      demoBloom.getPositions(falsePositive),
+    const { value } =
+      req.body;
 
-    bits: demoBloom.bits
-  });
-});
+    if (
+      !value ||
+      !value.trim()
+    ) {
 
-// Start server
-app.listen(PORT, () => {
-  console.log(
-    `BloomLab API running at http://localhost:${PORT}`
-  );
-});
+      return res
+        .status(400)
+        .json({
+          message:
+            "Value is required"
+        });
+
+    }
+
+    const cleanValue =
+      value.trim();
+
+    const positions =
+      bloom.getPositions(
+        cleanValue
+      );
+
+    const exists =
+      bloom.contains(
+        cleanValue
+      );
+
+    res.json({
+
+      value:
+        cleanValue,
+
+      exists,
+
+      positions
+
+    });
+
+  }
+);
+
+
+/* ========================================
+   RESET FILTER
+======================================== */
+
+app.post(
+  "/api/bloom/reset",
+  (req, res) => {
+
+    bloom.bits.fill(0);
+
+    bloom.itemCount = 0;
+
+    res.json({
+
+      message:
+        "Bloom Filter reset",
+
+      bits:
+        bloom.bits
+
+    });
+
+  }
+);
+
+
+/* ========================================
+   FALSE POSITIVE DEMONSTRATION
+======================================== */
+
+app.get(
+  "/api/bloom/false-positive-demo",
+  (req, res) => {
+
+    const demoBloom =
+      new BloomFilter(8, 3);
+
+
+    const insertedItems = [
+      "apple",
+      "banana",
+      "orange"
+    ];
+
+
+    for (
+      const item of insertedItems
+    ) {
+
+      demoBloom.add(item);
+
+    }
+
+
+    const candidates = [
+      "mango",
+      "computer",
+      "hello",
+      "pizza",
+      "grape",
+      "water",
+      "flower",
+      "dog"
+    ];
+
+
+    const falsePositive =
+      candidates.find(
+        item =>
+          !insertedItems.includes(
+            item
+          ) &&
+          demoBloom.contains(
+            item
+          )
+      );
+
+
+    if (!falsePositive) {
+
+      return res.json({
+        found: false
+      });
+
+    }
+
+
+    res.json({
+
+      found: true,
+
+      insertedItems,
+
+      testedItem:
+        falsePositive,
+
+      positions:
+        demoBloom.getPositions(
+          falsePositive
+        ),
+
+      bits:
+        demoBloom.bits
+
+    });
+
+  }
+);
+
+
+/* ========================================
+   START SERVER
+======================================== */
+
+app.listen(
+  PORT,
+  () => {
+
+    console.log(
+      `BloomLab API running at http://localhost:${PORT}`
+    );
+
+  }
+);

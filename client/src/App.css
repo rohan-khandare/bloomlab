@@ -1048,6 +1048,353 @@ body {
   }
 }
 
+
+/* ========================================
+   FILTER STATISTICS
+======================================== */
+
+.filterStats {
+  max-width: 900px;
+
+  margin-top: 80px;
+
+  padding-top: 40px;
+
+  border-top: 1px solid #333;
+}
+
+.statsHeader h3 {
+  margin: 10px 0 0;
+
+  font-size: 32px;
+
+  letter-spacing: -1px;
+}
+
+.statsGrid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 8px;
+
+  margin-top: 30px;
+}
+
+.statCard {
+  min-height: 150px;
+
+  padding: 22px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  border: 1px solid #333;
+
+  background: #181818;
+}
+
+.statLabel {
+  font-family: "DM Mono", monospace;
+
+  font-size: 9px;
+
+  letter-spacing: 1.3px;
+
+  color: #777;
+}
+
+.statCard strong {
+  margin-top: 15px;
+
+  font-size: 38px;
+
+  line-height: 1;
+
+  letter-spacing: -2px;
+
+  color: white;
+}
+
+.statCard small {
+  margin-top: 10px;
+
+  color: #666;
+
+  font-family: "DM Mono", monospace;
+
+  font-size: 9px;
+}
+
+.statTotal {
+  color: #555;
+
+  font-size: 20px;
+
+  letter-spacing: 0;
+}
+
+.probabilityCard {
+  margin-top: 8px;
+
+  padding: 28px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 30px;
+
+  border: 1px solid #39c6d6;
+
+  background: #12373c;
+}
+
+.probabilityCard strong {
+  display: block;
+
+  margin-top: 8px;
+
+  color: #8debf3;
+
+  font-size: 42px;
+
+  letter-spacing: -2px;
+}
+
+.probabilityCard p {
+  max-width: 400px;
+
+  margin: 0;
+
+  color: #65bdc7;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+
+  .statsGrid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .probabilityCard {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+}
+
+
+/* ========================================
+   MATH EXPLANATION
+======================================== */
+
+.mathExplanation {
+  margin-top: 8px;
+  border: 1px solid #333;
+  background: #151515;
+}
+
+.mathHeader {
+  padding: 28px;
+  border-bottom: 1px solid #333;
+}
+
+.mathHeader h3 {
+  margin: 10px 0 0;
+  font-size: 28px;
+  letter-spacing: -1px;
+}
+
+
+/* FORMULA */
+
+.formulaBlock {
+  padding: 35px 28px;
+  border-bottom: 1px solid #333;
+  text-align: center;
+}
+
+.formulaLabel {
+  display: block;
+  margin-bottom: 18px;
+
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 1.3px;
+  color: #777;
+}
+
+.mainFormula {
+  font-family: "DM Mono", monospace;
+  font-size: 30px;
+  color: #8debf3;
+  letter-spacing: 1px;
+}
+
+.mainFormula sup {
+  font-size: 0.55em;
+}
+
+
+/* TERMS */
+
+.mathTerms {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+
+  background: #333;
+  border-bottom: 1px solid #333;
+}
+
+.mathTerm {
+  display: flex;
+  gap: 20px;
+
+  padding: 25px;
+  background: #151515;
+}
+
+.mathTerm > strong {
+  min-width: 30px;
+
+  font-family: "DM Mono", monospace;
+  font-size: 26px;
+  color: #8debf3;
+}
+
+.mathTerm span {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #777;
+}
+
+.mathTerm p {
+  margin: 8px 0 0;
+
+  max-width: 330px;
+
+  color: #999;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+
+/* CALCULATION */
+
+.calculationBlock {
+  padding: 30px 28px;
+  border-bottom: 1px solid #333;
+}
+
+.calculationValues {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.calculationValues > div {
+  min-width: 90px;
+  padding: 14px 18px;
+
+  border: 1px solid #333;
+  background: #181818;
+}
+
+.calculationValues span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  color: #777;
+}
+
+.calculationValues strong {
+  font-size: 24px;
+  color: white;
+}
+
+.calculationSteps {
+  padding: 22px;
+
+  border-left: 2px solid #39c6d6;
+  background: #12373c;
+}
+
+.calculationSteps p {
+  margin: 8px 0;
+
+  font-family: "DM Mono", monospace;
+  font-size: 14px;
+  color: #8debf3;
+}
+
+.calculationSteps sup {
+  font-size: 0.65em;
+}
+
+
+/* SIMPLE EXPLANATION */
+
+.simpleExplanation {
+  padding: 30px 28px;
+  background: #181818;
+}
+
+.simpleExplanation p {
+  max-width: 720px;
+
+  margin: 12px 0 0;
+
+  color: #aaa;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.simpleExplanation strong {
+  color: white;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .mathTerms {
+    grid-template-columns: 1fr;
+  }
+
+  .mainFormula {
+    font-size: 21px;
+  }
+
+  .calculationValues {
+    flex-wrap: wrap;
+  }
+
+  .mathTerm {
+    padding: 20px;
+  }
+
+  .calculationSteps {
+    overflow-x: auto;
+  }
+
+}
 /* FOOTER */
 
 footer {

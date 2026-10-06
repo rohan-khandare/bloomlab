@@ -4,6 +4,9 @@ class BloomFilter {
     this.hashCount = hashCount;
 
     this.bits = new Array(size).fill(0);
+
+    // Track number of insertion operations
+    this.itemCount = 0;
   }
 
   hash(value, seed) {
@@ -37,6 +40,9 @@ class BloomFilter {
     for (const position of positions) {
       this.bits[position] = 1;
     }
+
+    // Count this insertion operation
+    this.itemCount++;
 
     return positions;
   }
