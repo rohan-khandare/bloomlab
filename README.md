@@ -20,9 +20,13 @@ It lets you insert values, check membership, see hash positions light up, explor
 
 <!-- Replace these paths with your actual screenshots -->
 
-![BloomLab Main Interface](docs/screenshots/main-interface.png)
+![BloomLab Main Interface](docs/screenshots/interface1.png)
+![BloomLab Main Interface](docs/screenshots/interface2.png)
+![BloomLab Main Interface](docs/screenshots/interface3.png)
+![BloomLab Main Interface](docs/screenshots/interface4.png)
+![BloomLab Main Interface](docs/screenshots/interface5.png)
+![BloomLab Main Interface](docs/screenshots/interface6.png)
 
-![False Positive Experiment](docs/screenshots/false-positive.png)
 
 ---
 
@@ -101,9 +105,8 @@ BloomLab includes a controlled experiment that demonstrates this behavior.
 
 The approximate false-positive probability is:
 
-\[
-P \approx (1-e^{-kn/m})^k
-\]
+<img width="1196" height="287" alt="image" src="https://github.com/user-attachments/assets/a8191f4c-abba-4df5-a326-3546752f9847" />
+
 
 Where:
 
