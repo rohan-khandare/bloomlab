@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="160" viewBox="0 0 640 160">
+  <rect width="640" height="160" fill="none"/>
+  <text x="320" y="98" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="64" fill="#111111">
+    P ≈ (1 − e
+    <tspan dy="-24" font-size="38">−kn/m</tspan>
+    <tspan dy="24" font-size="64">)</tspan>
+    <tspan dy="-24" font-size="38">k</tspan>
+  </text>
+</svg>
