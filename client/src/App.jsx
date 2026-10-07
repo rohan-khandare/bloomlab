@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import BitArray from "./components/BitArray";
 
-const API_URL = "http://localhost:5000/api/bloom";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [bits, setBits] = useState([]);
